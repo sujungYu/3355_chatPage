@@ -119,6 +119,11 @@ public class ChatService {
     }
 
     @Transactional
+    public ChatRoom create(ChatRoom chatRoom) {
+        return chatRepository.save(chatRoom);
+    }
+
+    @Transactional
     public ChatMessage saveMessage(ChatMessage chatMessage) {
         // ChatMessage chatMessage = new ChatMessage();
         // chatRooms.put(chatRoom.getRoomId(), chatMessage);

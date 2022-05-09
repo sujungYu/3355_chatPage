@@ -40,10 +40,10 @@ public class ChatRoomController {
 
     // 채팅 리스트 화면
     @GetMapping("/room")
-    public String rooms(Model model) {
+    public String rooms() {
         // return "/";
-        // return "/room";
-        return "/vue/index";
+        return "/room";
+        // return "/vue/index";
     }
 
     // 모든 채팅방 목록 반환
@@ -59,21 +59,19 @@ public class ChatRoomController {
         return chatService.createRoom(name);
     }
 
-    // sql 저장 시, html 주소 - post 주소 맞춰주기
-    /*
-     * /room/enter/{roomId} 에서 save 로직을 실행시켜서 SQL 저장 X
-     * 화면이 구성된 주소와 동일한 /room에서 해당 로직을 실행시켜 주어야 저장 가능
-     * 
-     * --- > ID는 부여됐지만 지정한 roomName이 할당되지 않는 문제 발생
-     */
+    @PostMapping("/create")
+    @ResponseBody
+    public ChatRoom create(@RequestBody ChatRoom chatRoom) {
+        return chatService.create(chatRoom);
+    }
 
     // 채팅방 입장 화면
     @GetMapping("/room/enter/{roomId}")
     public String roomDetail(Model model, @PathVariable String roomId) {
         model.addAttribute("roomId", roomId);
 
-        // return "roomdetail";
-        return "/vue/index";
+        return "roomdetail";
+        // return "/vue/index";
     }
 
     // 특정 채팅방 조회

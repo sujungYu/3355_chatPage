@@ -53,10 +53,19 @@ public class ChatRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, name = "room_id")
+    @Column(name = "room_id")
     private String roomId;
-    @Column(nullable = false, name = "room_name")
+
+    @Column(name = "room_name")
     private String roomName;
+
+    // 게시글 작성자
+    @Column(name = "host")
+    private String host;
+
+    // 채팅 참여자
+    @Column(name = "guest")
+    private String guest;
 
     public static ChatRoom create(String name) {
         ChatRoom room = new ChatRoom();
@@ -66,8 +75,10 @@ public class ChatRoom {
     }
 
     @Builder
-    public ChatRoom(String roomId, String roomName) {
+    public ChatRoom(String roomId, String roomName, String host, String guest) {
         this.roomId = roomId;
         this.roomName = roomName;
+        this.host = host;
+        this.guest = guest;
     }
 }

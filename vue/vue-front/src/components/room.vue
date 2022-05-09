@@ -75,9 +75,7 @@ export default {
   methods: {
     async findAllRoom() {
       await axios.get("/chat/rooms").then(response => {
-        console.log(response.data);
         this.chatrooms = response.data;
-        console.log(this.chatrooms);
       });
     },
     createRoom: function() {
@@ -100,11 +98,12 @@ export default {
           });
       }
     },
-    enterRoom: function(roomId) {
+    enterRoom(roomId) {
       var sender = prompt("대화명을 입력해 주세요.");
       if (sender !== "") {
         localStorage.setItem("wschat.sender", sender);
         localStorage.setItem("wschat.roomId", roomId);
+        // this.$router.push(`/chat/room/enter/${roomId}`)
         location.href = "/chat/room/enter/" + roomId;
         // location.href="/chat/room/enter/";
       }
