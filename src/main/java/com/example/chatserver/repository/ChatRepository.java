@@ -20,4 +20,6 @@ public interface ChatRepository extends JpaRepository<ChatRoom, Long> {
     @Override
     List<ChatRoom> findAll();
 
+    List<ChatRoom> findByRoomId(String roomId);
+
 }

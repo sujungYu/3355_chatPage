@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.chatserver.model.ChatMessage;
 import com.example.chatserver.service.ChatService;
+import com.example.chatserver.service.MessageService;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +26,7 @@ public class MessageController {
     private final SimpMessageSendingOperations sendingOperations;
 
     private final ChatService chatService;
+    private final MessageService messageService;
 
     @PostMapping("/chat/message")
     @MessageMapping("/chat/message")
@@ -41,10 +44,17 @@ public class MessageController {
     }
 
     // 모든 채팅 내역 반환
-    @GetMapping("/chat/messages")
+    @GetMapping("/chat/allmessages")
     @ResponseBody
     public List<ChatMessage> allMsgs() {
         return chatService.findAllMsgs();
+    }
+
+    // 특정 채팅방 채팅 내역 조회
+    @GetMapping("/chat/messages")
+    @ResponseBody
+    public List<ChatMessage> getRoomParam(@RequestParam String roomId) {
+        return messageService.findByRoomId(roomId);
     }
 
 }

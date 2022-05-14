@@ -105,8 +105,8 @@ public class ChatService {
     }
 
     // 채팅방 하나 불러오기
-    public ChatRoom findById(String roomId) {
-        return chatRooms.get(roomId);
+    public List<ChatRoom> findByRoomId(String roomId) {
+        return chatRepository.findByRoomId(roomId);
     }
 
     @Transactional

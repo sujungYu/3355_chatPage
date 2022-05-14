@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -41,9 +42,8 @@ public class ChatRoomController {
     // 채팅 리스트 화면
     @GetMapping("/room")
     public String rooms() {
-        // return "/";
-        return "/room";
-        // return "/vue/index";
+
+        return "/vue/index";
     }
 
     // 모든 채팅방 목록 반환
@@ -53,32 +53,38 @@ public class ChatRoomController {
         return chatService.findAllRoom();
     }
 
+    // 채팅방 생성
     @PostMapping("/room")
     @ResponseBody
     public ChatRoom createRoom(@RequestParam String name) {
         return chatService.createRoom(name);
     }
 
-    @PostMapping("/create")
-    @ResponseBody
-    public ChatRoom create(@RequestBody ChatRoom chatRoom) {
-        return chatService.create(chatRoom);
-    }
+    // @PostMapping("/create")
+    // @ResponseBody
+    // public ChatRoom create(@RequestBody ChatRoom chatRoom) {
+    // return chatService.create(chatRoom);
+    // }
 
     // 채팅방 입장 화면
     @GetMapping("/room/enter/{roomId}")
     public String roomDetail(Model model, @PathVariable String roomId) {
         model.addAttribute("roomId", roomId);
 
-        return "roomdetail";
-        // return "/vue/index";
+        return "/vue/index";
     }
 
     // 특정 채팅방 조회
-    @GetMapping("/room/{roomId}")
-    @ResponseBody
-    public ChatRoom roomInfo(@PathVariable String roomId) {
-        return chatService.findById(roomId);
-    }
+    // @GetMapping("/room/{roomId}")
+    // @ResponseBody
+    // public ChatRoom roomInfo(@PathVariable String roomId) {
+    // return chatService.findById(roomId);
+    // }
 
+    // RoomId 로 특정 채팅방 조회
+    @GetMapping("/roominfo")
+    @ResponseBody
+    public List<ChatRoom> getRoomParam(@RequestParam String roomId) {
+        return chatService.findByRoomId(roomId);
+    }
 }

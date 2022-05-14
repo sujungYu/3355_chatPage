@@ -3,6 +3,7 @@
       <ul>
           <li v-for="item in chatrooms" :key="item" @click="enterRoom(item.roomId)">
               {{ item.roomName }}
+              <i class="fa-solid fa-circle-minus" @click="deleteRoom(item.roomId)"></i>
           </li>
       </ul>
   </div>
@@ -27,16 +28,21 @@ export default {
             });
         },
         enterRoom(roomId) {
-            // const sender = prompt("아이디");
+            const sender = '이다'
             if(sender != "") {
-                // localStorage.setItem("wschat.sender", sender);
-                // localStorage.setItem("wschat.roomId", roomId);
+                localStorage.setItem("wschat.sender", sender);
+                localStorage.setItem("wschat.roomId", roomId);
                 location.href = "/chat/room/enter/" + roomId;
             }
+        },
+         deleteRoom(roomId) {
+             console.log('delete');
+             axios.delete('/chat/roominfo?roomId='+roomId)
+             axios.delete('/chat/messages?roomId='+roomId)
+            }
         }
-    }
 
-}
+    }
 </script>
 
 <style>

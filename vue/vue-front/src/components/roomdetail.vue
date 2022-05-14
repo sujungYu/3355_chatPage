@@ -3,7 +3,7 @@
   <!-- <h2>dasa</h2> -->
 <div class="container" id="app" v-cloak>
     <div>
-        <h2>{{room.name}}</h2>
+        <h2>{{room.roomName}}</h2>
     </div>
     <div class="input-group">
         <div class="input-group-prepend">
@@ -47,9 +47,10 @@ import SockJS from 'sockjs-client'
             this.sender = localStorage.getItem('wschat.sender');
 
             // 채팅방 제목
-            axios.get('/chat/room?roomId='+this.roomId)
+            axios.get('/chat/roominfo?roomId='+this.roomId)
                 .then(res => {
-                    this.room = res.data
+                    this.room = res.data[0];
+                    console.log(this.room);
                 }).catch(err => {
                     console.log(err);
                 })

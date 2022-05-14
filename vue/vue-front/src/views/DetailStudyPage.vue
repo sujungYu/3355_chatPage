@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import StudyForm from '../components/StudyForm.vue'
+import StudyForm from '../components/DetailStudyForm.vue'
 export default {
   components: { StudyForm },
 
